@@ -15,10 +15,11 @@ func printVersion() {
 func printHelp() {
     print(
         """
-        usage: brainfuck [-evh] [file...]
-                -e                              run code directly
-                -v --version                    show version information
+        usage: brainfuck [-evht] [file...]
                 -h --help                       show a help message
+                -v --version                    show version information
+                <file_path>                     run code from file
+                -e                              run code directly
                 -t <source_path> <target_path>  transfer to swift
         """
     )

@@ -15,29 +15,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3551789322F576E800BDEC56 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		359955B222F1EC8800D8A5CD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstSubfolderSpec = 16;
 			files = (
 				355178A122F57DB900BDEC56 /* Examples in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3551789522F576E800BDEC56 /* brainfuck2swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = brainfuck2swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		3551789D22F577FD00BDEC56 /* interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = interpreter.swift; sourceTree = "<group>"; };
 		355178A022F57B7800BDEC56 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = "<group>"; };
 		355178A422F5AA9D00BDEC56 /* help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = help.swift; sourceTree = "<group>"; };
@@ -47,13 +37,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3551789222F576E800BDEC56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		359955B122F1EC8800D8A5CD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,7 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				359955B422F1EC8800D8A5CD /* brainfuck */,
-				3551789522F576E800BDEC56 /* brainfuck2swift */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,23 +78,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3551789422F576E800BDEC56 /* brainfuck2swift */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3551789B22F576E800BDEC56 /* Build configuration list for PBXNativeTarget "brainfuck2swift" */;
-			buildPhases = (
-				3551789122F576E800BDEC56 /* Sources */,
-				3551789222F576E800BDEC56 /* Frameworks */,
-				3551789322F576E800BDEC56 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = brainfuck2swift;
-			productName = brainfuck2swift;
-			productReference = 3551789522F576E800BDEC56 /* brainfuck2swift */;
-			productType = "com.apple.product-type.tool";
-		};
 		359955B322F1EC8800D8A5CD /* brainfuck */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 359955BB22F1EC8800D8A5CD /* Build configuration list for PBXNativeTarget "brainfuck" */;
@@ -140,9 +105,6 @@
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = PointerFLY;
 				TargetAttributes = {
-					3551789422F576E800BDEC56 = {
-						CreatedOnToolsVersion = 10.3;
-					};
 					359955B322F1EC8800D8A5CD = {
 						CreatedOnToolsVersion = 10.3;
 					};
@@ -161,19 +123,11 @@
 			projectRoot = "";
 			targets = (
 				359955B322F1EC8800D8A5CD /* brainfuck */,
-				3551789422F576E800BDEC56 /* brainfuck2swift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3551789122F576E800BDEC56 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		359955B022F1EC8800D8A5CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -188,26 +142,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3551789922F576E800BDEC56 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HJ2DPGH38B;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		3551789A22F576E800BDEC56 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HJ2DPGH38B;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		359955B922F1EC8800D8A5CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -346,15 +280,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3551789B22F576E800BDEC56 /* Build configuration list for PBXNativeTarget "brainfuck2swift" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3551789922F576E800BDEC56 /* Debug */,
-				3551789A22F576E800BDEC56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		359955AF22F1EC8800D8A5CD /* Build configuration list for PBXProject "Brainfuck" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
