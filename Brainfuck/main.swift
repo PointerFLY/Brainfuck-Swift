@@ -28,20 +28,20 @@ if argc == 1 {
         printError("failed to read file \(path)")
         exit(EXIT_FAILURE)
     }
-} else if argc >= 2 {
+} else if argc >= 3 {
     switch arguments[1] {
     case "-v", "--version":
         printVersion()
     case "-h", "--help":
         printHelp()
     case "-e":
-        guard argc >= 3 else {
-            printError("need to specify text to be evaluated")
+        runByText(arguments[2])
+    case "-t":
+        guard argc >= 4 else {
+            printError("target file path if missing")
             exit(EXIT_FAILURE)
         }
-        runByText(arguments[2])
-    case "-t", "--2swift":
-        break
+        transpile(sourcePath: arguments[2], targetPath: arguments[3])
     default:
         printError("invalid option")
         exit(EXIT_FAILURE)

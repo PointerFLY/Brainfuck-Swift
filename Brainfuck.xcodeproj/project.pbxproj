@@ -11,6 +11,7 @@
 		3551789E22F577FD00BDEC56 /* interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3551789D22F577FD00BDEC56 /* interpreter.swift */; };
 		355178A122F57DB900BDEC56 /* Examples in CopyFiles */ = {isa = PBXBuildFile; fileRef = 355178A022F57B7800BDEC56 /* Examples */; };
 		355178A522F5AA9D00BDEC56 /* help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355178A422F5AA9D00BDEC56 /* help.swift */; };
+		35B8015D22F5BD2D00527155 /* transpiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B8015C22F5BD2D00527155 /* transpiler.swift */; };
 		A3EAAD6422F2785800CF5475 /* token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EAAD6322F2785800CF5475 /* token.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		355178A422F5AA9D00BDEC56 /* help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = help.swift; sourceTree = "<group>"; };
 		359955B422F1EC8800D8A5CD /* brainfuck */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = brainfuck; sourceTree = BUILT_PRODUCTS_DIR; };
 		359955B722F1EC8800D8A5CD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		35B8015C22F5BD2D00527155 /* transpiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = transpiler.swift; sourceTree = "<group>"; };
 		A3EAAD6322F2785800CF5475 /* token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +73,7 @@
 				355178A422F5AA9D00BDEC56 /* help.swift */,
 				A3EAAD6322F2785800CF5475 /* token.swift */,
 				3551789D22F577FD00BDEC56 /* interpreter.swift */,
+				35B8015C22F5BD2D00527155 /* transpiler.swift */,
 			);
 			path = Brainfuck;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35B8015D22F5BD2D00527155 /* transpiler.swift in Sources */,
 				3551789C22F5776600BDEC56 /* main.swift in Sources */,
 				355178A522F5AA9D00BDEC56 /* help.swift in Sources */,
 				A3EAAD6422F2785800CF5475 /* token.swift in Sources */,
