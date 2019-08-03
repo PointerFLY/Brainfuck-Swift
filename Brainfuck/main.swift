@@ -8,43 +8,37 @@
 
 import Foundation
 
-let program = CommandLine.arguments[1]
+let argc = CommandLine.argc
+let arguments = CommandLine.arguments
 
-var length = 1_000_000
-var tape = [UInt8](repeating: 0, count: length)
-var pointer: Int = 0
-var loopStack = [Int]()
-
-
-var i = 0;
-while i < program.count {
-    defer { i += 1 }
-    
-    let char = program[program.index(program.startIndex, offsetBy: i)]
-    guard let token = Token(rawValue: char) else { continue }
-
-    switch token {
-    case .left:
-        pointer -= 1
-    case .right:
-        pointer += 1
-    case .increase:
-        tape[pointer] += 1
-    case .decrease:
-        tape[pointer] -= 1
-    case .loopStart:
-        loopStack.append(i)
-    case .loopEnd:
-        let startIndex = loopStack.popLast()!
-        if tape[pointer] != 0 {
-            i = startIndex - 1
+if argc == 1 {
+    runInteractively()
+} else if argc == 2 {
+    let relativePath = arguments[2]
+    let currentURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+    let fileURL = currentURL.appendingPathComponent(relativePath)
+    if let data = try? Data(contentsOf: fileURL), let text = String(data: data, encoding: .utf8) {
+        runByText(text)
+    } else {
+        printError("failed to read file \(relativePath)")
+        exit(EXIT_FAILURE)
+    }
+} else if argc >= 2 {
+    switch arguments[1] {
+    case "-v", "--version":
+        printVersion()
+    case "-e":
+        guard argc >= 3 else {
+            printError("need to specify text to be evaluated")
+            exit(EXIT_FAILURE)
         }
-    case .input:
-        let data = FileHandle.standardInput.readData(ofLength: 1)
-        let char = String(data: data, encoding: .ascii)!.first!
-        tape[pointer] = char.asciiValue!
-    case .output:
-        let char = Character(UnicodeScalar(tape[pointer]))
-        print(String(char), terminator: "")
+        runByText(arguments[2])
+    case "-t", "--2swift":
+        break
+    case "-h", "--help":
+        printHelp()
+    default:
+        printError("invalid option")
+        exit(EXIT_FAILURE)
     }
 }
