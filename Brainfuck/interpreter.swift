@@ -12,13 +12,25 @@ func runByText(_ text: String) {
     var tape = [UInt8](repeating: 0, count: 1000 * 1000)
     var pointer: Int = 0
     var loopStack = [Int]()
+    var skipLoopCounter: Int = 0
     
     var i = 0;
     while i < text.count {
-        defer { i += 1 }
-        
         let char = text[text.index(text.startIndex, offsetBy: i)]
-        guard let token = Token(rawValue: char) else { continue }
+        guard let token = Token(rawValue: char) else {
+            i += 1
+            continue
+        }
+        
+        guard skipLoopCounter == 0 else {
+            if token == .loopStart {
+                skipLoopCounter += 1
+            } else if token == .loopEnd {
+                skipLoopCounter -= 1
+            }
+            i += 1
+            continue
+        }
         
         switch token {
         case .left:
@@ -32,7 +44,11 @@ func runByText(_ text: String) {
         case .decrease:
             tape[pointer] &-= 1
         case .loopStart:
-            loopStack.append(i)
+            if tape[pointer] == 0 {
+                skipLoopCounter = 1
+            } else {
+                loopStack.append(i)
+            }
         case .loopEnd:
             guard let startIndex = loopStack.popLast() else {
                 printError("illegal ] end without [")
@@ -53,6 +69,8 @@ func runByText(_ text: String) {
             let char = Character(UnicodeScalar(tape[pointer]))
             print(String(char), terminator: "")
         }
+        
+        i += 1
     }
 }
 
@@ -61,18 +79,29 @@ func runInteractively() {
     var pointer: Int = 0
     var loopStack = [Int]()
     var tokens = [Token]()
-    var index = 0
+    var i = 0
+    var skipLoopCounter: Int = 0
     
     while (true) {
         var token: Token
-        if index < tokens.count { // Still in the loop
-            token = tokens[index]
+        if i < tokens.count { // Still in the loop
+            token = tokens[i]
         } else {
             let data = FileHandle.standardInput.readData(ofLength: 1)
             guard let char = String(data: data, encoding: .ascii)?.first else { continue }
             guard let t = Token(rawValue: char) else { continue }
             token = t
             tokens.append(token)
+        }
+        
+        guard skipLoopCounter == 0 else {
+            if token == .loopStart {
+                skipLoopCounter += 1
+            } else if token == .loopEnd {
+                skipLoopCounter -= 1
+            }
+            i += 1
+            continue
         }
 
         switch token {
@@ -87,7 +116,11 @@ func runInteractively() {
         case .decrease:
             tape[pointer] &-= 1
         case .loopStart:
-            loopStack.append(index)
+            if tape[pointer] == 0 {
+                skipLoopCounter = 1
+            } else {
+                loopStack.append(i)
+            }
         case .loopEnd:
             guard let startIndex = loopStack.popLast() else {
                 printError("illegal ] end without [")
@@ -95,7 +128,7 @@ func runInteractively() {
             }
             
             if tape[pointer] != 0 {
-                index = startIndex - 1
+                i = startIndex - 1
             }
         case .input:
             let data = FileHandle.standardInput.readData(ofLength: 1)
@@ -109,7 +142,7 @@ func runInteractively() {
             print(String(char), terminator: "")
         }
         
-        index += 1
+        i += 1
     }
 }
 
