@@ -28,9 +28,9 @@ func runByText(_ text: String) {
             pointer += 1
             checkTapePointer(tape: &tape, pointer: pointer)
         case .increase:
-            tape[pointer] += 1
+            tape[pointer] &+= 1
         case .decrease:
-            tape[pointer] -= 1
+            tape[pointer] &-= 1
         case .loopStart:
             loopStack.append(i)
         case .loopEnd:
@@ -83,9 +83,9 @@ func runInteractively() {
             pointer += 1
             checkTapePointer(tape: &tape, pointer: pointer)
         case .increase:
-            tape[pointer] += 1
+            tape[pointer] &+= 1
         case .decrease:
-            tape[pointer] -= 1
+            tape[pointer] &-= 1
         case .loopStart:
             loopStack.append(index)
         case .loopEnd:

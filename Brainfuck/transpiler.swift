@@ -36,9 +36,9 @@ func transpile(sourcePath: String, targetPath: String) {
         case .right:
             statement = "pointer += 1\n"
         case .increase:
-            statement = "tape[pointer] += 1\n"
+            statement = "tape[pointer] &+= 1\n"
         case .decrease:
-            statement = "tape[pointer] -= 1\n"
+            statement = "tape[pointer] &-= 1\n"
         case .loopStart:
             statement = "while tape[pointer] != 0 {\n"
         case .loopEnd:
