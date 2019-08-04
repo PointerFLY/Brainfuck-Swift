@@ -48,5 +48,49 @@ func runByText(_ text: String) {
 }
 
 func runInteractively() {
+    var tape = [UInt8](repeating: 0, count: 1000 * 1000)
+    var pointer: Int = 0
+    var loopStack = [Int]()
+    var tokens = [Token]()
+    var index = 0
     
+    while (true) {
+        var token: Token
+        if index < tokens.count {
+            token = tokens[index]
+        } else {
+            let data = FileHandle.standardInput.readData(ofLength: 1)
+            guard let char = String(data: data, encoding: .ascii)?.first else { continue }
+            guard let tk = Token(rawValue: char) else { continue }
+            token = tk
+            tokens.append(token)
+        }
+
+        switch token {
+        case .left:
+            pointer -= 1
+        case .right:
+            pointer += 1
+        case .increase:
+            tape[pointer] += 1
+        case .decrease:
+            tape[pointer] -= 1
+        case .loopStart:
+            loopStack.append(index)
+        case .loopEnd:
+            let startIndex = loopStack.popLast()!
+            if tape[pointer] != 0 {
+                index = startIndex - 1
+            }
+        case .input:
+            let data = FileHandle.standardInput.readData(ofLength: 1)
+            let char = String(data: data, encoding: .ascii)!.first!
+            tape[pointer] = char.asciiValue!
+        case .output:
+            let char = Character(UnicodeScalar(tape[pointer]))
+            print(String(char), terminator: "")
+        }
+        
+        index += 1
+    }
 }
