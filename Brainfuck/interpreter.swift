@@ -10,24 +10,24 @@ import Foundation
 
 func runByText(_ text: String) {
     var tape = [UInt8](repeating: 0, count: 1000 * 1000)
-    var pointer: Int = 0
+    var pointer = 0
     var loopStack = [Int]()
-    var skipLoopCounter: Int = 0
-    var i = 0;
+    var skippingLoops = 0
+    var index = 0;
     
-    while i < text.count {
-        let char = text[text.index(text.startIndex, offsetBy: i)]
+    while index < text.count {
+        let char = text[text.index(text.startIndex, offsetBy: index)]
         guard let token = Token(rawValue: char) else {
-            i += 1
+            index += 1
             continue
         }
         
         operatePerStep(tape: &tape,
                        pointer: &pointer,
                        loopStack: &loopStack,
-                       skipLoopCounter: &skipLoopCounter,
+                       skippingLoops: &skippingLoops,
                        token: token,
-                       i: &i)
+                       index: &index)
     }
 }
 
@@ -36,13 +36,13 @@ func runInteractively() {
     var pointer: Int = 0
     var loopStack = [Int]()
     var tokens = [Token]()
-    var skipLoopCounter: Int = 0
-    var i = 0
+    var skippingLoops: Int = 0
+    var index = 0
     
     while (true) {
         var token: Token
-        if i < tokens.count { // Still in the loop
-            token = tokens[i]
+        if index < tokens.count { // Still in the loop
+            token = tokens[index]
         } else {
             let data = FileHandle.standardInput.readData(ofLength: 1)
             guard let char = String(data: data, encoding: .ascii)?.first else { continue }
@@ -54,25 +54,25 @@ func runInteractively() {
         operatePerStep(tape: &tape,
                        pointer: &pointer,
                        loopStack: &loopStack,
-                       skipLoopCounter: &skipLoopCounter,
+                       skippingLoops: &skippingLoops,
                        token: token,
-                       i: &i)
+                       index: &index)
     }
 }
 
 private func operatePerStep(tape: inout [UInt8],
                             pointer: inout Int,
                             loopStack: inout [Int],
-                            skipLoopCounter: inout Int,
+                            skippingLoops: inout Int,
                             token: Token,
-                            i: inout Int) {
-    guard skipLoopCounter == 0 else {
+                            index: inout Int) {
+    guard skippingLoops == 0 else {
         if token == .loopStart {
-            skipLoopCounter += 1
+            skippingLoops += 1
         } else if token == .loopEnd {
-            skipLoopCounter -= 1
+            skippingLoops -= 1
         }
-        i += 1
+        index += 1
         return
     }
     
@@ -89,9 +89,9 @@ private func operatePerStep(tape: inout [UInt8],
         tape[pointer] &-= 1
     case .loopStart:
         if tape[pointer] == 0 {
-            skipLoopCounter = 1
+            skippingLoops = 1
         } else {
-            loopStack.append(i)
+            loopStack.append(index)
         }
     case .loopEnd:
         guard let startIndex = loopStack.popLast() else {
@@ -100,7 +100,7 @@ private func operatePerStep(tape: inout [UInt8],
         }
         
         if tape[pointer] != 0 {
-            i = startIndex - 1
+            index = startIndex - 1
         }
     case .input:
         let data = FileHandle.standardInput.readData(ofLength: 1)
@@ -114,7 +114,7 @@ private func operatePerStep(tape: inout [UInt8],
         print(String(char), terminator: "")
     }
     
-    i += 1
+    index += 1
 }
 
 private func checkTapePointer(tape: inout [UInt8], pointer: Int) {
