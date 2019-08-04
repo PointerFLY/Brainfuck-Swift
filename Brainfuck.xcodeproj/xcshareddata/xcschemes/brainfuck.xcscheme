@@ -63,8 +63,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "Examples/666.bf"
-            isEnabled = "YES">
+            argument = "-t"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "Examples/helloworld.bf"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "c.swift"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-e"

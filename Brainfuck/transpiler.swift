@@ -18,7 +18,6 @@ func transpile(sourcePath: String, targetPath: String) {
     var swiftText =
     """
     import Foundation
-
     var tape = [UInt8](repeating: 0, count: 1000 * 1000)
     var pointer: Int = 0\n
     """
@@ -47,10 +46,7 @@ func transpile(sourcePath: String, targetPath: String) {
         case .input:
             statement =
             """
-            FileHandle.standardInput.readData(ofLength: 1)
-            let data = FileHandle.standardInput.readData(ofLength: 1)
-            let char = String(data: data, encoding: .ascii)!.first!
-            tape[pointer] = char.asciiValue!\n
+            tape[pointer] = String(data: FileHandle.standardInput.readData(ofLength: 1), encoding: .ascii)!.first!.asciiValue!\n
             """
         case .output:
             statement =
