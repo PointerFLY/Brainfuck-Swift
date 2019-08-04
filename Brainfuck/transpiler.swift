@@ -62,5 +62,10 @@ func transpile(sourcePath: String, targetPath: String) {
         swiftText.append(contentsOf: statement)
     }
     
-    try! swiftText.write(to: urlFromPath(targetPath), atomically: false, encoding: .utf8)
+    do {
+        try swiftText.write(to: urlFromPath(targetPath), atomically: false, encoding: .utf8)
+    } catch {
+        printError("failed to write to target path")
+        exit(EXIT_FAILURE)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  manual.swift
+//  help.swift
 //  brainfuck
 //
 //  Created by PointerFLY on 3/8/19.
@@ -9,7 +9,7 @@
 import Foundation
 
 func printVersion() {
-    print("0.0.1")
+    print("0.1.0")
 }
 
 func printHelp() {
@@ -33,6 +33,7 @@ func printError(_ text: String) {
 
 func urlFromPath(_ path: String) -> URL {
     var fileURL = URL(fileURLWithPath: path)
+    
     // If it is a absolute path
     if path[path.startIndex] != "/" {
         let currentURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)

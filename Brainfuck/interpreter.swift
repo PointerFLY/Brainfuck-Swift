@@ -32,14 +32,21 @@ func runByText(_ text: String) {
         case .loopStart:
             loopStack.append(i)
         case .loopEnd:
-            let startIndex = loopStack.popLast()!
+            guard let startIndex = loopStack.popLast() else {
+                printError("illegal ] end without [")
+                exit(EXIT_FAILURE)
+            }
+            
             if tape[pointer] != 0 {
                 i = startIndex - 1
             }
         case .input:
             let data = FileHandle.standardInput.readData(ofLength: 1)
-            let char = String(data: data, encoding: .ascii)!.first!
-            tape[pointer] = char.asciiValue!
+            guard let value = String(data: data, encoding: .ascii)?.first?.asciiValue else {
+                printError("only ascii code is supported")
+                exit(EXIT_FAILURE)
+            }
+            tape[pointer] = value
         case .output:
             let char = Character(UnicodeScalar(tape[pointer]))
             print(String(char), terminator: "")
@@ -56,13 +63,13 @@ func runInteractively() {
     
     while (true) {
         var token: Token
-        if index < tokens.count {
+        if index < tokens.count { // Still in the loop
             token = tokens[index]
         } else {
             let data = FileHandle.standardInput.readData(ofLength: 1)
             guard let char = String(data: data, encoding: .ascii)?.first else { continue }
-            guard let tk = Token(rawValue: char) else { continue }
-            token = tk
+            guard let t = Token(rawValue: char) else { continue }
+            token = t
             tokens.append(token)
         }
 
@@ -78,14 +85,21 @@ func runInteractively() {
         case .loopStart:
             loopStack.append(index)
         case .loopEnd:
-            let startIndex = loopStack.popLast()!
+            guard let startIndex = loopStack.popLast() else {
+                printError("illegal ] end without [")
+                exit(EXIT_FAILURE)
+            }
+            
             if tape[pointer] != 0 {
                 index = startIndex - 1
             }
         case .input:
             let data = FileHandle.standardInput.readData(ofLength: 1)
-            let char = String(data: data, encoding: .ascii)!.first!
-            tape[pointer] = char.asciiValue!
+            guard let value = String(data: data, encoding: .ascii)?.first?.asciiValue else {
+                printError("only ascii code is supported")
+                exit(EXIT_FAILURE)
+            }
+            tape[pointer] = value
         case .output:
             let char = Character(UnicodeScalar(tape[pointer]))
             print(String(char), terminator: "")

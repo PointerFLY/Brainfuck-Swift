@@ -6,7 +6,7 @@
 //  Copyright © 2019 PointerFLY. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 enum Token: Character {
     case left = "<"
