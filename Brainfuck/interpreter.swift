@@ -23,8 +23,10 @@ func runByText(_ text: String) {
         switch token {
         case .left:
             pointer -= 1
+            checkTapePointer(tape: &tape, pointer: pointer)
         case .right:
             pointer += 1
+            checkTapePointer(tape: &tape, pointer: pointer)
         case .increase:
             tape[pointer] += 1
         case .decrease:
@@ -76,8 +78,10 @@ func runInteractively() {
         switch token {
         case .left:
             pointer -= 1
+            checkTapePointer(tape: &tape, pointer: pointer)
         case .right:
             pointer += 1
+            checkTapePointer(tape: &tape, pointer: pointer)
         case .increase:
             tape[pointer] += 1
         case .decrease:
@@ -106,5 +110,15 @@ func runInteractively() {
         }
         
         index += 1
+    }
+}
+
+private func checkTapePointer(tape: inout [UInt8], pointer: Int) {
+    if pointer < 0 {
+        printError("tape pointer out of boundary")
+    } else if pointer >= tape.count {
+        var newTape = [UInt8](repeating: 0, count: tape.count * 2)
+        newTape.insert(contentsOf: tape, at: 0)
+        tape = newTape
     }
 }
