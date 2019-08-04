@@ -21,7 +21,6 @@ if argc == 1 {
         runByText(text)
     } else {
         printError("failed to read file \(path)")
-        exit(EXIT_FAILURE)
     }
 } else if argc >= 3 {
     switch arguments[1] {
@@ -33,12 +32,11 @@ if argc == 1 {
         runByText(arguments[2])
     case "-t":
         guard argc >= 4 else {
-            printError("target file path if missing")
+            printError("target file path is missing")
             exit(EXIT_FAILURE)
         }
         transpile(sourcePath: arguments[2], targetPath: arguments[3])
     default:
         printError("invalid option")
-        exit(EXIT_FAILURE)
     }
 }
