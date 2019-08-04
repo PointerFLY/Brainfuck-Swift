@@ -15,12 +15,7 @@ if argc == 1 {
     runInteractively()
 } else if argc == 2 {
     let path = arguments[1]
-    var fileURL = URL(fileURLWithPath: path)
-    // If it is a absolute path
-    if path[path.startIndex] != "/" {
-        let currentURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        fileURL = currentURL.appendingPathComponent(path)
-    }
+    let fileURL = urlFromPath(path)
     
     if let data = try? Data(contentsOf: fileURL), let text = String(data: data, encoding: .utf8) {
         runByText(text)

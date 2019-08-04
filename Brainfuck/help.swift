@@ -30,3 +30,14 @@ func printError(_ text: String) {
         FileHandle.standardError.write(data)
     }
 }
+
+func urlFromPath(_ path: String) -> URL {
+    var fileURL = URL(fileURLWithPath: path)
+    // If it is a absolute path
+    if path[path.startIndex] != "/" {
+        let currentURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        fileURL = currentURL.appendingPathComponent(path)
+    }
+    
+    return fileURL
+}
